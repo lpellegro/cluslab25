@@ -37,7 +37,7 @@ app.post("/get-support", async (req, res) => {
     res.redirect("/support.html");
   } catch (err) {
     console.error("Error fetching user:", err);
-    res.redirect("/index_final_with_error.html?error=server");
+    res.redirect("/index.html?error=server");
   }
 });
 
