@@ -25,17 +25,14 @@
       font-size: 3em;
       margin-bottom: 30px;
     }
-    
-        ul {
+    ul {
       list-style: none;
       padding: 0;
     }
-
     li {
       margin: 20px 0;
     }
-    
-        a, button {
+    a, button {
       text-decoration: none;
       color: #005999;
       background-color: #e3f2fd;
@@ -47,45 +44,14 @@
       border: none;
       cursor: pointer;
     }
-
     a:hover, button:hover {
       background-color: #bbdefb;
       color: #003c70;
     }
-
-    .help-button {
-      margin-top: 40px;
-    }
-    
-    #countdown {
-      margin-top: 20px;
-      font-size: 1em;
-      color: #777;
-    }
-    
     .error {
       color: red;
       font-size: 1em;
-      margin-bottom: 10px;
-    }
-    input, button {
-      padding: 10px;
-      font-size: 1em;
-      margin-top: 10px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      width: 80%;
-    }
-    button {
-      background-color: #e3f2fd;
-      color: #005999;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      border: none;
-    }
-    button:hover {
-      background-color: #bbdefb;
-      color: #003c70;
+      margin-top: 20px;
     }
   </style>
 </head>
@@ -98,19 +64,34 @@
       <li><a href="https://www.cisco.com/c/dam/en/us/td/docs/solutions/PA/WbxEdge/PAEdgeVMN.pdf" target="_blank">PA Video Mesh</a></li>
       <li><a href="https://www.cisco.com/c/dam/en/us/td/docs/solutions/PA/WbxEdge/PAEdgeAudio.pdf" target="_blank">PA Webex Edge Audio</a></li> 
     </ul>
-    <div id="error" class="error"></div>
-    <form action="/get-support" method="POST">
-      <input type="text" name="userId" placeholder="Enter your user ID" required />
-      <br />
-      <button type="submit">Get Help</button>
-    </form>
+    <div>
+      <button onclick="getHelp()">Get Help</button>
+      <div id="error" class="error"></div>
+    </div>
   </div>
   <script>
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("error") === "notfound") {
-      document.getElementById("error").textContent = "User not found. Please try again.";
-    } else if (params.get("error") === "server") {
-      document.getElementById("error").textContent = "Server error. Please try again later.";
+    async function getHelp() {
+      const userId = prompt("Please enter your user ID:");
+      if (!userId) return;
+
+      try {
+        const response = await fetch("/get-support", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId })
+        });
+
+        if (response.redirected) {
+          window.location.href = response.url;
+        } else if (response.status === 404) {
+          document.getElementById("error").textContent = "User not found. Please try again.";
+        } else {
+          throw new Error("Unexpected error");
+        }
+      } catch (err) {
+        document.getElementById("error").textContent = "Server error. Please try again later.";
+        console.error(err);
+      }
     }
   </script>
 </body>
