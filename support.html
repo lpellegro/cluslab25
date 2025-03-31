@@ -25,27 +25,17 @@
       font-size: 3em;
       margin-bottom: 30px;
     }
-    .error {
-      color: red;
-      font-size: 1em;
-      margin-bottom: 10px;
-    }
-    input, button {
-      padding: 10px;
-      font-size: 1em;
-      margin-top: 10px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      width: 80%;
-    }
-    button {
+    form button {
+      padding: 12px 24px;
+      font-size: 1.1em;
       background-color: #e3f2fd;
       color: #005999;
+      border-radius: 10px;
+      border: none;
       cursor: pointer;
       transition: all 0.3s ease;
-      border: none;
     }
-    button:hover {
+    form button:hover {
       background-color: #bbdefb;
       color: #003c70;
     }
@@ -54,20 +44,9 @@
 <body>
   <div class="container">
     <h1>Preferred Architecture</h1>
-    <div id="error" class="error"></div>
-    <form action="/get-support" method="POST">
-      <input type="text" name="userId" placeholder="Enter your user ID" required />
-      <br />
-      <button type="submit">Get Help</button>
+    <form action="/call" method="POST">
+      <button type="submit">Call Me</button>
     </form>
   </div>
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("error") === "notfound") {
-      document.getElementById("error").textContent = "User not found. Please try again.";
-    } else if (params.get("error") === "server") {
-      document.getElementById("error").textContent = "Server error. Please try again later.";
-    }
-  </script>
 </body>
 </html>
