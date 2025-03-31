@@ -17,7 +17,7 @@ app.use(express.static(path.join(__dirname)));
 
 app.post("/get-support", async (req, res) => {
   const { userId } = req.body;
-  if (!userId) return res.redirect("/index_final_with_error.html?error=notfound");
+  if (!userId) return res.redirect("/index.html?error=notfound");
 
   const token = "patEYNvu8eVsoUFvd.d681043e170e04cc2b0971d87190566aec2945dd2ad95fb81398a50024c4cff4";
   const apiUrl = `https://api.airtable.com/v0/appPgG6qF4W2FvbHS/Users?filterByFormula=user_id=\"${userId}\"`;
@@ -28,7 +28,7 @@ app.post("/get-support", async (req, res) => {
     });
     const data = await response.json();
 
-    if (!data.records.length) return res.redirect("/index_final_with_error.html?error=notfound");
+    if (!data.records.length) return res.redirect("/index.html?error=notfound");
 
     const phone = data.records[0].fields.phone || "";
     const normalizedPhone = phone.replace(/[\s\-\.+]/g, "").replace(/^\+/, "");

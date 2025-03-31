@@ -1,0 +1,17 @@
+{
+  "name": "preferred-architecture-server",
+  "version": "1.0.0",
+  "description": "Server-side app for support flow",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "node-fetch": "^2.6.11"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}
