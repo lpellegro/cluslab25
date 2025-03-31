@@ -19,7 +19,7 @@ app.post("/get-support", async (req, res) => {
   const { userId } = req.body;
   if (!userId) return res.redirect("/index.html?error=notfound");
 
-  const token = "patEYNvu8eVsoUFvd.d681043e170e04cc2b0971d87190566aec2945dd2ad95fb81398a50024c4cff4";
+  const token = process.env.AIRTABLE_TOKEN //"patEYNvu8eVsoUFvd.d681043e170e04cc2b0971d87190566aec2945dd2ad95fb81398a50024c4cff4";
   const apiUrl = `https://api.airtable.com/v0/appPgG6qF4W2FvbHS/Users?filterByFormula=user_id=\"${userId}\"`;
 
   try {
@@ -43,6 +43,7 @@ app.post("/get-support", async (req, res) => {
 
 app.post("/call", async (req, res) => {
   const phone = req.session.phone;
+  const webhookKey = process.env.WEBEX_HOOK_KEY
   if (!phone) return res.status(403).send("Unauthorized");
 
   try {
@@ -50,7 +51,7 @@ app.post("/call", async (req, res) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "key": "035a02f1-0aec-11f0-910b-02e3b0a35a3b"
+        "key": webhookKey
       },
       body: JSON.stringify({ phone })
     });
