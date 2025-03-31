@@ -66,7 +66,7 @@ app.post("/call", async (req, res) => {
   }
 });
 
-const path = require("path");
+//const path = require("path");
 app.use(express.static(path.join(__dirname)));
 
 const PORT = process.env.PORT || 3000;
