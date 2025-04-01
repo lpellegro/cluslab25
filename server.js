@@ -60,7 +60,18 @@ app.post("/call", async (req, res) => {
     });
 
     if (response.ok) {
-      res.send("Support is on the way!");
+      //res.send("Support is on the way!");
+      res.send(`
+        <html>
+          <head>
+            <meta http-equiv="refresh" content="3; url=/index.html" />
+          </head>
+          <body style="font-family: sans-serif; text-align: center; margin-top: 50px;">
+            <h1>Support is on the way!</h1>
+            <p>Redirecting you back to the home page...</p>
+          </body>
+        </html>
+        `);
     } else {
       res.status(500).send("Failed to send support request");
     }
