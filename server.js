@@ -18,6 +18,7 @@ app.use(express.static(path.join(__dirname)));
 app.post("/get-support", async (req, res) => {
   const { userId } = req.body;
   if (!userId) return res.redirect("/index.html?error=notfound");
+  req.session.userId = userId;
 
   const token = process.env.AIRTABLE_TOKEN //"patEYNvu8eVsoUFvd.d681043e170e04cc2b0971d87190566aec2945dd2ad95fb81398a50024c4cff4";
   const readEndpoint = process.env.AIRTABLE_READ_API;
@@ -53,6 +54,7 @@ app.post("/call", async (req, res) => {
   const phone = req.session.phone;
   const name = req.session.name;
   const order = req.session.order;
+  const userId = req.session.userId;
   const webhookKey = process.env.WEBEX_HOOK_KEY
   if (!phone) return res.status(403).send("Unauthorized");
 
@@ -65,6 +67,7 @@ app.post("/call", async (req, res) => {
         "key": webhookKey
       },
       body: JSON.stringify({ 
+        "user_id": userId,
         "phone": phone,
         "name": name,
         "order": order})
