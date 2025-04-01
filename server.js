@@ -20,7 +20,9 @@ app.post("/get-support", async (req, res) => {
   if (!userId) return res.redirect("/index.html?error=notfound");
 
   const token = process.env.AIRTABLE_TOKEN //"patEYNvu8eVsoUFvd.d681043e170e04cc2b0971d87190566aec2945dd2ad95fb81398a50024c4cff4";
-  const apiUrl = `https://api.airtable.com/v0/appPgG6qF4W2FvbHS/Users?filterByFormula=user_id=\"${userId}\"`;
+  const readEndpoint = process.env.AIRTABLE_READ_API;
+  //const apiUrl = `https://api.airtable.com/v0/appPgG6qF4W2FvbHS/Users?filterByFormula=user_id=\"${userId}\"`;
+  const apiUrl = `${readEndpoint}"${userId}"`;
 
   try {
     const response = await fetch(apiUrl, {
@@ -47,7 +49,8 @@ app.post("/call", async (req, res) => {
   if (!phone) return res.status(403).send("Unauthorized");
 
   try {
-    const response = await fetch("https://hooks.us.webexconnect.io/events/CAF0PJS5LU", {
+    const webexUrl = process.env.WEBEX_HOOK;
+    const response = await fetch(webexUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
