@@ -49,10 +49,18 @@
     </form>
   </div>
   <script>
+  const callBtn = document.getElementById("callBtn");
+
+  // Disable the button if user already clicked in this session
+  if (sessionStorage.getItem("alreadyCalled") === "true") {
+    callBtn.disabled = true;
+    callBtn.textContent = "Already Called";
+    
   document.querySelector("form").addEventListener("submit", function () {
-    const btn = document.getElementById("callBtn");
+    // const btn = document.getElementById("callBtn");
     btn.disabled = true;
     btn.textContent = "Calling...";
+    sessionStorage.setItem("alreadyCalled", "true");
   });
 </script>
 </body>
