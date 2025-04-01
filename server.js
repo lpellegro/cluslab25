@@ -33,10 +33,15 @@ app.post("/get-support", async (req, res) => {
     if (!data.records.length) return res.redirect("/index.html?error=notfound");
 
     const phone = data.records[0].fields.phone || "";
-    const 
+    const firstName = data.records[0].fields.first_name || "";
+    const lastName = data.records[0].fields.last_name || "";
+    const lastOrder = data.records[0].fields.last_order || "";
     const normalizedPhone = phone.replace(/[\s\-\.+]/g, "").replace(/^\+/, "");
 
     req.session.phone = normalizedPhone;
+    req.session.name = firstName;
+    req.session.order = lastOrder;
+    
     res.redirect("/support.html");
   } catch (err) {
     console.error("Error fetching user:", err);
@@ -46,6 +51,8 @@ app.post("/get-support", async (req, res) => {
 
 app.post("/call", async (req, res) => {
   const phone = req.session.phone;
+  const name = req.session.name;
+  const order = req.session.order;
   const webhookKey = process.env.WEBEX_HOOK_KEY
   if (!phone) return res.status(403).send("Unauthorized");
 
@@ -57,7 +64,10 @@ app.post("/call", async (req, res) => {
         "Content-Type": "application/json",
         "key": webhookKey
       },
-      body: JSON.stringify({ phone })
+      body: JSON.stringify({ 
+        "phone": phone,
+        "name": name,
+        "order": order})
     });
 
     if (response.ok) {
