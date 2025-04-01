@@ -45,8 +45,15 @@
   <div class="container">
     <h1>Preferred Architecture</h1>
     <form action="/call" method="POST">
-      <button type="submit">Call Me</button>
+      <button type="submit" id="callBtn">Call Me</button>
     </form>
   </div>
+  <script>
+  document.querySelector("form").addEventListener("submit", function () {
+    const btn = document.getElementById("callBtn");
+    btn.disabled = true;
+    btn.textContent = "Calling...";
+  });
+</script>
 </body>
 </html>
