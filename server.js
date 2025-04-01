@@ -33,6 +33,7 @@ app.post("/get-support", async (req, res) => {
     if (!data.records.length) return res.redirect("/index.html?error=notfound");
 
     const phone = data.records[0].fields.phone || "";
+    const 
     const normalizedPhone = phone.replace(/[\s\-\.+]/g, "").replace(/^\+/, "");
 
     req.session.phone = normalizedPhone;
