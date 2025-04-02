@@ -20,9 +20,8 @@ app.post("/get-support", async (req, res) => {
   if (!userId) return res.redirect("/index.html?error=notfound");
   req.session.userId = userId;
 
-  const token = process.env.AIRTABLE_TOKEN //"patEYNvu8eVsoUFvd.d681043e170e04cc2b0971d87190566aec2945dd2ad95fb81398a50024c4cff4";
+  const token = process.env.AIRTABLE_TOKEN;
   const readEndpoint = process.env.AIRTABLE_READ_API;
-  //const apiUrl = `https://api.airtable.com/v0/appPgG6qF4W2FvbHS/Users?filterByFormula=user_id=\"${userId}\"`;
   const apiUrl = `${readEndpoint}"${userId}"`;
 
   try {
@@ -74,7 +73,6 @@ app.post("/call", async (req, res) => {
     });
 
     if (response.ok) {
-      //res.send("Support is on the way!");
       res.send(`
         <html>
           <head>
@@ -95,7 +93,6 @@ app.post("/call", async (req, res) => {
   }
 });
 
-//const path = require("path");
 app.use(express.static(path.join(__dirname)));
 
 const PORT = process.env.PORT || 3000;
