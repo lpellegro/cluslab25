@@ -32,18 +32,21 @@
     li {
       margin: 20px 0;
     }
-    a, button {
-      text-decoration: none;
-      color: #005999;
-      background-color: #e3f2fd;
-      padding: 12px 24px;
-      border-radius: 10px;
-      font-size: 1.1em;
-      display: inline-block;
-      transition: all 0.3s ease;
-      border: none;
-      cursor: pointer;
-    }
+    
+a, button {
+  text-decoration: none;
+  color: #005999;
+  background-color: #e3f2fd;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 1.1em;
+  display: inline-block;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  min-width: 240px;  /* 👈 ensures consistent box width */
+  text-align: center;
+}
     a:hover, button:hover {
       background-color: #bbdefb;
       color: #003c70;
