@@ -44,9 +44,11 @@ a, button {
   transition: all 0.3s ease;
   border: none;
   cursor: pointer;
-  min-width: 240px;  /* 👈 ensures consistent box width */
+  width: 260px;  /* 👈 ensures consistent box width */
   text-align: center;
+  margin: 0 auto; /* centers the button inside <li> */
 }
+    
     a:hover, button:hover {
       background-color: #bbdefb;
       color: #003c70;
@@ -69,6 +71,7 @@ a, button {
       <li> 
         <button onclick="getHelp()">Get Help</button>
         <div id="error" class="error"></div>
+      </li>
     </ul>
     <div>
 
