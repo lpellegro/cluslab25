@@ -12,7 +12,7 @@
       padding: 0;
     }
     .container {
-      max-width: 600px;
+      max-width: 800px;
       margin: 100px auto;
       padding: 40px;
       background-color: #ffffffdd;
@@ -47,6 +47,7 @@ a, button {
   width: 260px;  /* 👈 ensures consistent box width */
   text-align: center;
   margin: 0 auto; /* centers the button inside <li> */
+  box-sizing: border-box;
 }
     
     a:hover, button:hover {
@@ -62,7 +63,7 @@ a, button {
 </head>
 <body>
   <div class="container">
-    <h1>Preferred Architecture</h1>
+    <h1>Cisco Preferred Architectures</h1>
     <ul>
       <li><a href="https://www.cisco.com/c/dam/en/us/td/docs/solutions/CVD/Collaboration/hybrid/AltDesigns/PA-WbxCall.pdf" target="_blank">PA Webex Calling</a></li>
       <li><a href="https://www.cisco.com/c/dam/en/us/td/docs/solutions/PA/EdgeConnect/PA_Edge_Connect_Design.pdf" target="_blank">PA Edge Connect</a></li>
@@ -73,10 +74,6 @@ a, button {
         <div id="error" class="error"></div>
       </li>
     </ul>
-    <div>
-
-
-    </div>
   </div>
   <script>
     async function getHelp() {
