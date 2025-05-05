@@ -54,6 +54,7 @@ app.post("/call", async (req, res) => {
   const name = req.session.name;
   const order = req.session.order;
   const userId = req.session.userId;
+  const callType = req.body.callType;
   const webhookKey = process.env.WEBEX_HOOK_KEY
   if (!phone) return res.status(403).send("Unauthorized");
 
@@ -69,7 +70,8 @@ app.post("/call", async (req, res) => {
         "user_id": userId,
         "phone": phone,
         "name": name,
-        "order": order})
+        "order": order,
+        "callType": callType})
     });
 
     if (response.ok) {

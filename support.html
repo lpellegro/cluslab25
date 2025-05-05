@@ -68,11 +68,17 @@
   }
 
   // On submit: disable both buttons and mark session
-  form.addEventListener("submit", function () {
-    buttons.forEach(btn => {
-      btn.disabled = true;
-    });
-    sessionStorage.setItem("alreadyCalled", "true");
+  form.addEventListener("submit", function (event) {
+    const clicked = event.submitter; // this is the button that triggered the submit
+
+    buttons.forEach(btn => btn.disabled = true);
+
+    // Optionally, customize the message
+    if (clicked) {
+      clicked.textContent = clicked.textContent.includes("Call") ? "Calling..." : "Sending...";
+    }
+
+  sessionStorage.setItem("alreadyCalled", "true");
   });
 </script>
 </body>
