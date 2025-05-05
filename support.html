@@ -44,22 +44,34 @@
 <body>
   <div class="container">
     <h1>Preferred Architecture</h1>
-    <form action="/call" method="POST">
-      <button type="submit" id="callBtn">Text Me</button>
+    <form action="/call" method="POST" id="supportForm">
+      <input type="hidden" name="callType" id="callType" value="" />
+      <button type="submit" onclick="setCallType('text')">Text Me</button>
+      <button type="submit" onclick="setCallType('call')">Call Me</button>
     </form>
   </div>
   <script>
-  const callBtn = document.getElementById("callBtn");
+  function setCallType(type) {
+    document.getElementById("callType").value = type;
+  }
+  </script>
+  <script>
+  const form = document.getElementById("supportForm");
+  const buttons = form.querySelectorAll("button");
 
-  // Disable the button if user already clicked in this session
+  // Disable buttons if already called
   if (sessionStorage.getItem("alreadyCalled") === "true") {
-    callBtn.disabled = true;
-    callBtn.textContent = "Already Called";
-    
-  document.querySelector("form").addEventListener("submit", function () {
-    // const btn = document.getElementById("callBtn");
-    btn.disabled = true;
-    btn.textContent = "Calling...";
+    buttons.forEach(btn => {
+      btn.disabled = true;
+      btn.textContent = "Already Called";
+    });
+  }
+
+  // On submit: disable both buttons and mark session
+  form.addEventListener("submit", function () {
+    buttons.forEach(btn => {
+      btn.disabled = true;
+    });
     sessionStorage.setItem("alreadyCalled", "true");
   });
 </script>
